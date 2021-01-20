@@ -4,8 +4,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/repeatable/header.jsp" %>
 
-Do you wish to cancel this appointment?
-<a href="/appointment/cancel/${appointmentId}/perform">Yes</a>
-<a href="/appointment/cancel/user/${appUserId}">No</a>
+<div class="box" style="margin-top: 50px">
+   <h2>Do you wish to cancel this appointment?</h2>
+    <a href="/appointment/cancel/${appointmentId}/perform">
+        <div class="btn">Yes</div>
+    </a>
+    <a href="/appointment/cancel/user/${appUserId}">
+        <div class="btn2">No</div>
+    </a>
+</div>
+
 </body>
 </html>

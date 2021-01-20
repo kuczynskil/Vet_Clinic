@@ -17,12 +17,12 @@
 
     <form action="/appointment/make/veterinarian/${vetId}" method="post">
         <label>
-            <select name="appointmentTimeString" class="input-text">
+            <select name="appointmentTimeString" class="input-text" style="width:100px;">
                 <c:forEach items="${availableTimes}" var="time">
                     <option value="${time}">${time}</option>
                 </c:forEach>
             </select>
-        </label>
+        </label><br>
         <input type="hidden" name="id" value="${vetId}">
         <input type="hidden" name="appointmentDateString" value="${appointmentDateString}">
         <input type="submit" value="Submit" class="btn">
