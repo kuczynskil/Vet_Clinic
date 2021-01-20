@@ -42,7 +42,7 @@ public class AppointmentController {
         LocalDate chosenDate = LocalDate.parse(appointmentDateString);
         if (chosenDate.getDayOfWeek().toString().equals("SUNDAY") ||
                 chosenDate.getDayOfWeek().toString().equals("SATURDAY")) {
-            model.addAttribute("weekendDateMessage", "Please choose a date outside of a weekend.");
+            model.addAttribute("weekendDateMessage", "Please choose a date from monday to friday.");
             model.addAttribute("vetId", id);
             return "appointment-make-choose-date-and-time";
         }
