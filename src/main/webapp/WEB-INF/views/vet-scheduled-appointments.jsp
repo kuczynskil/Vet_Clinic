@@ -9,13 +9,13 @@
         </label><br>
     </form>
 </div>
-    <table style="margin-top: 20px">
+    <table style="margin-top: 20px" aria-describedby="Veterinarian's scheduled appointments on ${date}">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th scope="col">ID</th>
+            <th scope="col">Client</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
         </tr>
         </thead>
         <tbody>

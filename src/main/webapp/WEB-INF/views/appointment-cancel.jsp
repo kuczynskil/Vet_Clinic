@@ -2,13 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/views/repeatable/header.jsp" %>
 
-<table style="margin-top: 50px">
+<table style="margin-top: 50px" aria-describedby="User's scheduled appointments">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Veterinarian</th>
-        <th>Date</th>
-        <th>Time</th>
+        <th scope="col">ID</th>
+        <th scope="col">Veterinarian</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
     </tr>
     </thead>
     <tbody>
