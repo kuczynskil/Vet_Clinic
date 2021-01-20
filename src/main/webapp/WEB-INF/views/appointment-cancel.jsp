@@ -1,10 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Vet Clinic</title>
-</head>
-<body>
+<%@include file="/WEB-INF/views/repeatable/header.jsp" %>
+
 <table>
     <thead>
     <tr>
