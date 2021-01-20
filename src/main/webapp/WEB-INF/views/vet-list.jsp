@@ -5,14 +5,14 @@
 <div class="row">
     <h2>Choose a veterinarian:</h2>
     <c:forEach items="${veterinarians}" var="veterinarian">
-    <a href="/vet/${veterinarian.id}">
-        <div class="column">
-            <div class="card">
-                <h3><b>${veterinarian.name} ${veterinarian.surname}</b></h3>
-                <p>${veterinarian.specialty}</p>
+        <a href="${postActionUrl}${veterinarian.id}">
+            <div class="column">
+                <div class="card">
+                    <h3><strong>${veterinarian.name} ${veterinarian.surname}</strong></h3>
+                    <p>${veterinarian.specialty}</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
     </c:forEach>
 </div>
 </body>
