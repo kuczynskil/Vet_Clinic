@@ -2,11 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Vet Clinic</title>
-</head>
-<body>
+<%@include file="/WEB-INF/views/repeatable/header.jsp" %>
+
 
 <form action="/appointment/make/veterinarian/date" method="post">
     <label>
