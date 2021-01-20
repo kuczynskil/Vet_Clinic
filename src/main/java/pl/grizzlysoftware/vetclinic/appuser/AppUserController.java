@@ -51,12 +51,10 @@ public class AppUserController {
         }
         LocalDate appointmentDate = LocalDate.parse(appointmentDateString);
         LocalTime appointmentTime = LocalTime.parse(appointmentTimeString);
-        Appointment appointment = new Appointment();
-        appointment.setVeterinarian(veterinarianRepository.getOne(vetId));
-        appointment.setDateAndTime(LocalDateTime.of(appointmentDate, appointmentTime));
-        appointment.setAppUser(appUser);
+        Appointment appointment = new Appointment(appUser, veterinarianRepository.getOne(vetId),
+                LocalDateTime.of(appointmentDate, appointmentTime));
         appointmentRepository.save(appointment);
-        return "home";
+        return "appointment-make-confirm";
     }
 
     public boolean authenticate(AppUser appUser, Model model, String loginPIN) {

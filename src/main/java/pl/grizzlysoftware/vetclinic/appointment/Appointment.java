@@ -24,4 +24,13 @@ public class Appointment {
 
     private LocalDateTime dateAndTime;
 
+    public Appointment(AppUser appUser, Veterinarian veterinarian, LocalDateTime dateAndTime) {
+        this.appUser = appUser;
+        this.veterinarian = veterinarian;
+        this.dateAndTime = dateAndTime;
+    }
+
+    public Appointment() {
+
+    }
 }
