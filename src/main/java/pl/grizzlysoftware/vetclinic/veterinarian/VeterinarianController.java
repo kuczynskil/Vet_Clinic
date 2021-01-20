@@ -27,6 +27,7 @@ public class VeterinarianController {
     public String chooseVetToDisplayAppointment(Model model) {
         List<Veterinarian> veterinarians = veterinarianRepository.findAll();
         model.addAttribute("veterinarians", veterinarians);
+        model.addAttribute("postActionUrl", "/vet/");
         return "vet-list";
     }
 

@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.Duration;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,12 +29,18 @@ public class Veterinarian {
     private byte workingHours;
 
     public List<LocalTime> possibleAppointmentTimesInADay() {
-        List<LocalTime> availableAppointmentsTimes = new ArrayList<>
-                (Collections.singletonList(getStartingTime()));
-        while (availableAppointmentsTimes.get(availableAppointmentsTimes.size() - 1).isBefore(startingTime.plusHours(workingHours).minusMinutes(appointmentLength.getHour() * 60 + appointmentLength.getMinute()))) {
-            availableAppointmentsTimes.add(availableAppointmentsTimes.get(availableAppointmentsTimes.size() - 1).plusMinutes(appointmentLength.getHour() * 60 + appointmentLength.getMinute()));
-        }
+        List<LocalTime> times = new ArrayList<>(Collections.singletonList(getStartingTime()));
+        ZoneId systemsZone = ZoneId.systemDefault();
+        ZoneId databaseZone = ZoneId.of("UTC");
+        int hoursBetween = (int) ChronoUnit.HOURS.between(LocalTime.now(databaseZone), LocalTime.now(systemsZone));
+        int appointmentLengthMinutes = appointmentLength.minusHours(hoursBetween).getHour() * 60 + appointmentLength.getMinute();
+        LocalTime lastPossibleAppointmentTime = startingTime.plusHours(workingHours)
+                .minusMinutes(appointmentLengthMinutes);
 
-        return availableAppointmentsTimes;
+        while (times.get(times.size() - 1).plusMinutes(appointmentLengthMinutes).isBefore(lastPossibleAppointmentTime)
+                || times.get(times.size() - 1).plusMinutes(appointmentLengthMinutes).equals(lastPossibleAppointmentTime)) {
+            times.add(times.get(times.size() - 1).plusMinutes(appointmentLengthMinutes));
+        }
+        return times;
     }
 }

@@ -20,6 +20,8 @@ public class AppointmentController {
 
     private final VeterinarianRepository veterinarianRepository;
     private final AppointmentRepository appointmentRepository;
+    private static final String VET_ID = "vetId";
+    private static final String APPOINTMENT_DATE = "appointmentDateString";
 
     public AppointmentController(VeterinarianRepository veterinarianRepository,
                                  AppointmentRepository appointmentRepository) {
@@ -31,7 +33,8 @@ public class AppointmentController {
     public String chooseVeterinarian(Model model) {
         List<Veterinarian> veterinarians = veterinarianRepository.findAll();
         model.addAttribute("veterinarians", veterinarians);
-        return "appointment-make-choose-vet";
+        model.addAttribute("postActionUrl", "/appointment/make/veterinarian/");
+        return "vet-list";
     }
 
     @PostMapping("/appointment/make/veterinarian/date")
@@ -43,10 +46,10 @@ public class AppointmentController {
         if (chosenDate.getDayOfWeek().toString().equals("SUNDAY") ||
                 chosenDate.getDayOfWeek().toString().equals("SATURDAY")) {
             model.addAttribute("weekendDateMessage", "Please choose a date from monday to friday.");
-            model.addAttribute("vetId", id);
+            model.addAttribute(VET_ID, id);
             return "appointment-make-choose-date-and-time";
         }
-        redirectAttributes.addFlashAttribute("appointmentDateString", appointmentDateString);
+        redirectAttributes.addFlashAttribute(APPOINTMENT_DATE, appointmentDateString);
         return "redirect:/appointment/make/veterinarian/" + id;
     }
 
@@ -54,21 +57,21 @@ public class AppointmentController {
     public String chooseTimeForAppointment(@PathVariable long id,
                                            Model model) {
         Veterinarian veterinarian = veterinarianRepository.getOne(id);
-        String appointmentDateString = (String) model.asMap().get("appointmentDateString");
+        String appointmentDateString = (String) model.asMap().get(APPOINTMENT_DATE);
         if (null != appointmentDateString) {
             List<LocalTime> availableTimesForNewAppointment =
                     availableAppointmentTimes(veterinarian, LocalDate.parse(appointmentDateString));
             model.addAttribute("availableTimes", availableTimesForNewAppointment);
         }
-        model.addAttribute("vetId", veterinarian.getId());
+        model.addAttribute(VET_ID, veterinarian.getId());
         return "appointment-make-choose-date-and-time";
     }
 
     @PostMapping("/appointment/make/veterinarian/{id}")
     public String makeAnAppointment(@PathVariable long id, @RequestParam String appointmentDateString,
                                     @RequestParam String appointmentTimeString, Model model) {
-        model.addAttribute("vetId", id);
-        model.addAttribute("appointmentDateString", appointmentDateString);
+        model.addAttribute(VET_ID, id);
+        model.addAttribute(APPOINTMENT_DATE, appointmentDateString);
         model.addAttribute("appointmentTimeString", appointmentTimeString);
         return "appointment-make-authentication";
     }
